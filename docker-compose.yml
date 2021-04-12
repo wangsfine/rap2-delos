@@ -53,6 +53,7 @@ services:
     # expose 33306 to client (navicat)
     #ports:
     #   - 33306:3306
+    privileged: true # 添加该配置后，mysql容器才真正拥有令人root权限，创建mysql服务器时，才不会报权限错误问题，解决mysql容器一直为exited状态问题
     volumes:
       # change './docker/mysql/volume' to your own path
       # WARNING: without this line, your data will be lost.
@@ -61,5 +62,5 @@ services:
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: "true"
       MYSQL_DATABASE: "rap2"
-      MYSQL_USER: "root"
+      # MYSQL_USER: "root" 以root用户连接mysql只需要有MYSQL_ALLOW_EMPTY_PASSWORD: "true"即可，否则会报错，解决mysql容器一直为exited状态问题
       MYSQL_PASSWORD: ""
